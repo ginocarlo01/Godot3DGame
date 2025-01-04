@@ -1,5 +1,5 @@
 # Godot3DGame
-My first game In Godot
+My first 3D game In Godot
 
 ## ✔️ Overview   
 
