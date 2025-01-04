@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://b4hwyii66ha2r"]
+
+[ext_resource type="FontFile" uid="uid://dxw8lg2sdm1fj" path="res://fonts/Montserrat-Medium.ttf" id="1_61h2m"]
+[ext_resource type="Script" path="res://scenes/pause_menu.gd" id="2_omwq1"]
+[ext_resource type="Shader" path="res://scenes/pause_menu.gdshader" id="3_0rily"]
+
+[sub_resource type="Theme" id="Theme_8fdyl"]
+default_font = ExtResource("1_61h2m")
+default_font_size = 42
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lgvnn"]
+shader = ExtResource("3_0rily")
+shader_parameter/amount = 2.0
+
+[node name="PauseMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_8fdyl")
+script = ExtResource("2_omwq1")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_lgvnn")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 25
+
+[node name="Resume" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resume
+"
+
+[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit
+"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

@@ -44,6 +44,8 @@ _data = {
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_vctih")
+min_degrees = -60
+max_degrees = 60
 
 [node name="Pivot" type="Node3D" parent="."]
 

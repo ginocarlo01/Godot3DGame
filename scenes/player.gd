@@ -4,6 +4,8 @@ extends CharacterBody3D
 # Put this at the top of the script.
 signal hit
 
+signal jumpSignal
+
 # How fast the player moves in meters per second.
 @export var speed = 14
 # The downward acceleration when in the air, in meters per second squared.
@@ -55,7 +57,7 @@ func _physics_process(delta):
 		
 	# Jumping.
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
-		target_velocity.y = jump_impulse
+		jump()
 		
 	# Iterate through all collisions that occurred this frame
 	#for index in range(get_slide_collision_count()):
@@ -89,6 +91,10 @@ func _on_mob_detector_body_entered(body: Node3D) -> void:
 func die():
 	hit.emit()
 	queue_free()
+	
+func jump():
+	target_velocity.y = jump_impulse
+	jumpSignal.emit()
 
 
 func _on_mob_detector_squash_body_entered(body: Node3D) -> void:
