@@ -14,3 +14,5 @@ I added a few things too:
 --Added a function to change from degrees to radians
 --Increased speed of the enemies over time
 --Max score with the use of resources
+
+SFX from: JDSherbert
