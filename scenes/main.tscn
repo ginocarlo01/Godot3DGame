@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cuc4snv4hw2o8"]
+[gd_scene load_steps=14 format=3 uid="uid://cuc4snv4hw2o8"]
 
 [ext_resource type="PackedScene" uid="uid://rfo20p2rqocf" path="res://scenes/player.tscn" id="1_2t085"]
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_4ygic"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://dxw8lg2sdm1fj" path="res://fonts/Montserrat-Medium.ttf" id="4_kf0pi"]
 [ext_resource type="Script" path="res://scenes/score_label.gd" id="5_rgh0o"]
 [ext_resource type="Script" path="res://scenes/score_label_2.gd" id="6_dnijw"]
+[ext_resource type="Script" path="res://scenes/time.gd" id="7_g8lsi"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n6j0b"]
 size = Vector3(60, 2, 60)
@@ -88,6 +89,8 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -13.01
 [node name="MobTimer" type="Timer" parent="."]
 wait_time = 0.5
 
+[node name="ScoreTimer" type="Timer" parent="."]
+
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
@@ -96,26 +99,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_m8fly")
-
-[node name="ScoreLabel" type="Label" parent="UI"]
-layout_mode = 0
-offset_left = 30.0
-offset_top = 19.0
-offset_right = 91.0
-offset_bottom = 42.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Score: 0"
-script = ExtResource("5_rgh0o")
-
-[node name="ScoreLabel2" type="Label" parent="UI"]
-layout_mode = 0
-offset_left = 30.0
-offset_top = 63.0
-offset_right = 118.0
-offset_bottom = 91.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Max Score: 0"
-script = ExtResource("6_dnijw")
 
 [node name="Retry" type="ColorRect" parent="UI"]
 visible = false
@@ -167,7 +150,44 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Start"
 
+[node name="InGame" type="Control" parent="UI"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ScoreLabel" type="Label" parent="UI/InGame"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 19.0
+offset_right = 118.0
+offset_bottom = 47.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Score: 0"
+script = ExtResource("5_rgh0o")
+
+[node name="MaxScore" type="Label" parent="UI/InGame"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 63.0
+offset_right = 170.0
+offset_bottom = 91.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Max Score: 0"
+script = ExtResource("6_dnijw")
+
+[node name="Time" type="Label" parent="UI/InGame"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 107.0
+offset_right = 170.0
+offset_bottom = 135.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Time: 0"
+script = ExtResource("7_g8lsi")
+
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
-[connection signal="hit" from="Player" to="UI/ScoreLabel" method="_on_player_hit"]
+[connection signal="hit" from="Player" to="UI/InGame/ScoreLabel" method="_on_player_hit"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="UI/InGame/ScoreLabel" method="_on_score_timer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="UI/InGame/Time" method="_on_score_timer_timeout"]
 [connection signal="pressed" from="UI/StartScreen/Button" to="." method="_on_button_pressed"]

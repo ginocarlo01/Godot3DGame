@@ -31,7 +31,9 @@ func _on_mob_timer_timeout() -> void:
 
 func _on_player_hit() -> void:
 	$MobTimer.stop()
+	$ScoreTimer.stop()
 	$UI/Retry.show()
+	$UI/InGame.hide()
 	
 func _unhandled_input(event):
 	if event.is_action_pressed("ui_accept") and $UI/Retry.visible:
@@ -46,5 +48,6 @@ func _on_button_pressed() -> void:
 	
 func start_game() -> void:
 	$MobTimer.start()
+	$ScoreTimer.start()
 	$Player.show()
 	$UI/StartScreen.hide()
