@@ -3,6 +3,11 @@ extends Node
 @export var mob_scene: PackedScene
 
 func _ready():
+	if UiManager.started == false:
+		$UI/StartScreen.show()
+	else:
+		start_game()
+		
 	$UI/Retry.hide()
 
 func _on_mob_timer_timeout() -> void:
@@ -35,6 +40,11 @@ func _unhandled_input(event):
 
 
 func _on_button_pressed() -> void:
+	start_game()
+	UiManager.started = true
+	
+	
+func start_game() -> void:
 	$MobTimer.start()
 	$Player.show()
 	$UI/StartScreen.hide()
